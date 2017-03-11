@@ -1,0 +1,12 @@
+{
+    "name": "tinathnath/jacky-bot",
+    "description": "The only Discord bot you need.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tinathnath",
+            "email": "tinathnath@gmail.com"
+        }
+    ],
+    "require": {}
+}
