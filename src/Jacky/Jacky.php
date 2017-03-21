@@ -46,6 +46,7 @@ class Jacky
         return $this;
     }
 
+
     public function registerStandardCommands()
     {
         /* Hey */
@@ -53,6 +54,13 @@ class Jacky
             'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
             'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
         ]);
+
+        return $this;
+    }
+
+    public function registerAdvancedCommands()
+    {
+        return $this;
     }
 
     #region Commands

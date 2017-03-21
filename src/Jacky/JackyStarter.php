@@ -11,6 +11,7 @@ use Discord\Discord;
 use Discord\DiscordCommandClient;
 use Jacky\Config\Configuration;
 use Jacky\Config\ConfigurationWrapper;
+use Jacky\Config\Parameters;
 use Jacky\Config\YamlConfigLoader;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Config\Definition\Processor;
@@ -20,9 +21,17 @@ class JackyStarter
 {
     private $_apiToken;
 
-    public function __construct($token)
+    public function __construct()
     {
-        $this->_apiToken = $token;
+
+    }
+
+    /**
+     * @param mixed $apiToken
+     */
+    public function setApiToken($apiToken)
+    {
+        $this->_apiToken = $apiToken;
     }
 
     /**
@@ -46,6 +55,32 @@ class JackyStarter
         try{
             $processedConfiguration = $processor->processConfiguration($configuration, $configValues);
             return new ConfigurationWrapper('jacky', $processedConfiguration);
+        }
+        catch(Exception $e){
+            exit($e->getMessage().PHP_EOL);
+        }
+    }
+
+    /**
+     * Load parameter file
+     * @param $directory
+     * @return ConfigurationWrapper
+     */
+    public function loadParameters($directory)
+    {
+        $file = 'parameters.yml';
+        $processedConfiguration = null;
+        $directories = array($directory);
+        $locator = new FileLocator($directories);
+
+        $loader = new YamlConfigLoader($locator);
+        $configValues = $loader->load($locator->locate($file));
+
+        $processor = new Processor();
+        $parameters = new Parameters();
+        try{
+            $processedConfiguration = $processor->processConfiguration($parameters, $configValues);
+            return new ConfigurationWrapper('parameters', $processedConfiguration);
         }
         catch(Exception $e){
             exit($e->getMessage().PHP_EOL);

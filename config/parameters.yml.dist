@@ -1,0 +1,3 @@
+parameters:
+    discord_api_token:
+    imgur_api_token:
