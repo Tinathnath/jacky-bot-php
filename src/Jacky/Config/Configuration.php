@@ -17,12 +17,12 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('jacky');
-        $rootNode
+      /*  $rootNode
             ->children()
                 ->scalarNode('discord_api_token')
                     ->isRequired()
                 ->end()
-            ->end();
+            ->end();*/
 
         return $treeBuilder;
     }
