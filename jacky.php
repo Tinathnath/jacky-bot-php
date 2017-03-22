@@ -27,7 +27,7 @@ $jacky->setStandardCommandClient($standardCommand)
 
     /* Hey */
         $standardCommand->registerCommand('coucou', function($m, $p) { 
-            $author = "{$message->author}";
+            $author = "{$m->author}";
             return [
                 "Salut $author !",
                 "M'jour vieille branche $author",
