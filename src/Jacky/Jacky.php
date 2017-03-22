@@ -50,7 +50,7 @@ class Jacky
     public function registerStandardCommands()
     {
         /* Hey */
-        $this->standardCommandClient->registerCommand('hey', function($m, $p){ $this->sayHello($m, $p); }, [
+        $this->standardCommandClient->registerCommand('hey', function($m, $p) { return $this->sayHello($m, $p); }, [
             'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
             'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
         ]);
