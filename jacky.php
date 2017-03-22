@@ -25,5 +25,22 @@ $jacky->setStandardCommandClient($standardCommand)
     ->setAdvancedCommandClient($advancedCommand)
     ->registerAdvancedCommands();
 
-$discord->run();
+    /* Hey */
+        $this->standardCommandClient->registerCommand('hey', function($m, $p) { 
+            $author = "{$message->author}";
+            return [
+                "Salut $author !",
+                "M'jour vieille branche $author",
+                "HEY bonjour enculé $author !",
+                ":wave: $author",
+                "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
+                "Bonjour biloute $author !"
+            ];
+            }, [
+            'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
+            'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
+        ]);
+
 echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
+$discord->run();
+
