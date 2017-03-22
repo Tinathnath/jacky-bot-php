@@ -26,7 +26,7 @@ $jacky->setStandardCommandClient($standardCommand)
     ->registerAdvancedCommands();
 
     /* Hey */
-        $standardCommand->registerCommand('hey', function($m, $p) { 
+        $standardCommand->registerCommand('coucou', function($m, $p) { 
             $author = "{$message->author}";
             return [
                 "Salut $author !",
