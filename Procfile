@@ -1,1 +1,1 @@
-web: php jacky.php -S 0.0.0.0:$PORT
+web: deploy/start_bot vendor/bin/heroku-php-nginx -C deploy/nginx_app.conf
