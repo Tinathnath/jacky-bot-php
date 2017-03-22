@@ -1,1 +1,1 @@
-web: php jacky.php
+web: php jacky.php -p $PORT
