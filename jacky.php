@@ -42,6 +42,11 @@ $discord->on('ready', function($discord){
                 'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
             ]);
 
+            // Listen for messages.
+            $discord->on('message', function ($message, $discord) {
+                echo "{$message->author->username}: {$message->content}",PHP_EOL;
+            });
+
     echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
 });
 
