@@ -19,28 +19,31 @@ $advancedCommand = $starter->initAdvancedCommandClient();
 
 echo 'Démarrage...'.PHP_EOL;
 
-$jacky = new Jacky($discord);
-$jacky->setStandardCommandClient($standardCommand)
-    ->registerStandardCommands()
-    ->setAdvancedCommandClient($advancedCommand)
-    ->registerAdvancedCommands();
+$discord->on('ready', function($discord){
+    $jacky = new Jacky($discord);
+    $jacky->setStandardCommandClient($standardCommand)
+        ->registerStandardCommands()
+        ->setAdvancedCommandClient($advancedCommand)
+        ->registerAdvancedCommands();
 
-    /* Hey */
-        $standardCommand->registerCommand('coucou', function($m, $p) { 
-            $author = "{$m->author}";
-            return [
-                "Salut $author !",
-                "M'jour vieille branche $author",
-                "HEY bonjour enculé $author !",
-                ":wave: $author",
-                "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
-                "Bonjour biloute $author !"
-            ];
-            }, [
-            'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
-            'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
-        ]);
+        /* Hey */
+            $standardCommand->registerCommand('coucou', function($m, $p) { 
+                $author = "{$m->author}";
+                return [
+                    "Salut $author !",
+                    "M'jour vieille branche $author",
+                    "HEY bonjour enculé $author !",
+                    ":wave: $author",
+                    "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
+                    "Bonjour biloute $author !"
+                ];
+                }, [
+                'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
+                'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
+            ]);
 
-echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
+    echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
+});
+
 $discord->run();
 
