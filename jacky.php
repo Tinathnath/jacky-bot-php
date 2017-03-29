@@ -19,7 +19,7 @@ $advancedCommand = $starter->initAdvancedCommandClient();
 
 echo 'Démarrage...'.PHP_EOL;
 
-$discord->on('ready', function($discord) use ($standardCommand){
+$discord->on('ready', function($discord) use ($standardCommand, $advancedCommand){
     $jacky = new Jacky($discord);
    /* $jacky->setStandardCommandClient($standardCommand)
         ->registerStandardCommands()
@@ -41,6 +41,9 @@ $discord->on('ready', function($discord) use ($standardCommand){
                 'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
                 'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
             ]); 
+
+            $standardCommand->registerCommand('ping', 'pong');
+            $advancedCommand->registerCommand('foo', 'bar'); 
 
             // Listen for messages.
             $discord->on('message', function ($message, $discord) {
