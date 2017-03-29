@@ -48,7 +48,8 @@ $discord->on('ready', function($discord) use ($standardCommand, $advancedCommand
             // Listen for messages.
             $discord->on('message', function ($message, $discord) {
                 echo "{$message->author->username}: {$message->content}",PHP_EOL;
-            });
+                $message->reply("Hola camarade");
+            }); 
 
     echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
 });
