@@ -35,21 +35,7 @@ $discord->on('ready', function() use ($discord) {
     $jacky = new Jacky($discord);
 
 
-        /* Hey */
-            $discord->registerCommand('coucou', function($m, $p) {
-                $author = "{$m->author}";
-                return [
-                    "Salut $author !",
-                    "M'jour vieille branche $author",
-                    "HEY bonjour enculé $author !",
-                    ":wave: $author",
-                    "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
-                    "Bonjour biloute $author !"
-                ];
-                }, [
-                'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
-                'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
-            ]); 
+
 
 
             // Listen for messages.
@@ -60,6 +46,22 @@ $discord->on('ready', function() use ($discord) {
 
     echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
 });
+
+/* Hey */
+$discord->registerCommand('coucou', function($m, $p) {
+    $author = "{$m->author}";
+    return [
+        "Salut $author !",
+        "M'jour vieille branche $author",
+        "HEY bonjour enculé $author !",
+        ":wave: $author",
+        "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
+        "Bonjour biloute $author !"
+    ];
+}, [
+    'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
+    'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
+]);
 
 $discord->run();
 
