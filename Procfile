@@ -1,1 +1,1 @@
-web: bash start_bot vendor/bin/heroku-php-nginx -C nginx_app.conf
+web: bash heroku/start_bot vendor/bin/heroku-php-nginx -C heroku/nginx_app.conf

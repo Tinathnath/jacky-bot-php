@@ -9,9 +9,9 @@ namespace Jacky;
 
 use Discord\Discord;
 use Discord\DiscordCommandClient;
-use Jacky\Config\Configuration;
+use Jacky\Config\ConfigurationTree;
 use Jacky\Config\ConfigurationWrapper;
-use Jacky\Config\Parameters;
+use Jacky\Config\ParametersTree;
 use Jacky\Config\YamlConfigLoader;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Config\Definition\Processor;
@@ -51,7 +51,7 @@ class JackyStarter
         $configValues = $loader->load($locator->locate($mainConfigFile));
 
         $processor = new Processor();
-        $configuration = new Configuration();
+        $configuration = new ConfigurationTree();
         try{
             $processedConfiguration = $processor->processConfiguration($configuration, $configValues);
             return new ConfigurationWrapper('jacky', $processedConfiguration);
@@ -77,7 +77,7 @@ class JackyStarter
         $configValues = $loader->load($locator->locate($file));
 
         $processor = new Processor();
-        $parameters = new Parameters();
+        $parameters = new ParametersTree();
         try{
             $processedConfiguration = $processor->processConfiguration($parameters, $configValues);
             return new ConfigurationWrapper('parameters', $processedConfiguration);

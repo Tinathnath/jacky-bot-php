@@ -1,1 +1,5 @@
 jacky:
+    command_prefix: mention
+    description: null
+    redis:
+        host: 127.0.0.1

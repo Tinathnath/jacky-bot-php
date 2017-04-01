@@ -7,6 +7,7 @@
 
 namespace Jacky\Config;
 
+use Jacky\Exception\Config\ConfigurationNodeNotFoundException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
@@ -18,9 +19,23 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
  */
 class ConfigurationWrapper
 {
+    /**
+     * Stores the parsed configuration as a real array
+     * @var array configuration
+     */
     private $_configuration;
+
+    /**
+     * The Symfony ExpressionLanguage Component instance
+     * @var ExpressionLanguage
+     */
     private $_expressionLanguage = null;
 
+    /**
+     * ConfigurationWrapper constructor.
+     * @param $rootNode
+     * @param $configuration
+     */
     public function __construct($rootNode, $configuration)
     {
         $this->_configuration = array( $rootNode => (object) $configuration);
@@ -31,6 +46,7 @@ class ConfigurationWrapper
      * Return a config key's value
      * @param $node
      * @return string
+     * @throws ConfigurationNodeNotFoundException
      */
     public function get($node)
     {
@@ -38,7 +54,7 @@ class ConfigurationWrapper
             return $this->_expressionLanguage->evaluate($node, $this->_configuration);
         }
         catch(Exception $e){
-            throw new Exception("La variable de configuration $node n'existe pas.");
+            throw new ConfigurationNodeNotFoundException(sprintf("La variable de configuration %s n'existe pas.", $node), null, $e);
         }
     }
 }

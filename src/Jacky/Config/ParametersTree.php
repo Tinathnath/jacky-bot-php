@@ -11,8 +11,17 @@ namespace Jacky\Config;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class Parameters implements ConfigurationInterface
+/**
+ * Class Parameters
+ * Object representation of the YAML parameter file
+ * @package Jacky\Config
+ */
+class ParametersTree implements ConfigurationInterface
 {
+    /**
+     * Creates the TreeBuilder
+     * @return TreeBuilder
+     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
