@@ -59,7 +59,8 @@ class DiscordFactory
             $baseOptions['prefix'] = $this->_prefix;
 
         $discordOptions = array_merge($baseOptions, $options);
-
+        var_dump($discordOptions);
+        
         return new DiscordCommandClient($discordOptions);
     }
 
