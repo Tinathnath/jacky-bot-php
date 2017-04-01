@@ -23,13 +23,15 @@ class ConfigurationWrapper
      * Stores the parsed configuration as a real array
      * @var array configuration
      */
-    private $_configuration;
+    protected $_configuration;
 
     /**
      * The Symfony ExpressionLanguage Component instance
      * @var ExpressionLanguage
      */
-    private $_expressionLanguage = null;
+    protected $_expressionLanguage = null;
+
+    protected $_rootNode = null;
 
     /**
      * ConfigurationWrapper constructor.
@@ -38,6 +40,7 @@ class ConfigurationWrapper
      */
     public function __construct($rootNode, $configuration)
     {
+        $this->_rootNode = $rootNode;
         $this->_configuration = array( $rootNode => (object) $configuration);
         $this->_expressionLanguage = new ExpressionLanguage();
     }
@@ -50,8 +53,9 @@ class ConfigurationWrapper
      */
     public function get($node)
     {
+        $formattedNode = sprintf("%s.%s", $this->_rootNode, $node);
         try{
-            return $this->_expressionLanguage->evaluate($node, $this->_configuration);
+            return $this->_expressionLanguage->evaluate($formattedNode, $this->_configuration);
         }
         catch(Exception $e){
             throw new ConfigurationNodeNotFoundException(sprintf("La variable de configuration %s n'existe pas.", $node), null, $e);

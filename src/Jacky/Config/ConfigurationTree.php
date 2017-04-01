@@ -28,7 +28,7 @@ class ConfigurationTree implements ConfigurationInterface
         $rootNode = $treeBuilder->root('jacky');
         $rootNode
             ->children()
-                ->scalarNode('default_prefix')
+                ->scalarNode('command_prefix')
                     ->isRequired()
                     ->defaultValue('mention')
                 ->end()
