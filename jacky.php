@@ -57,9 +57,9 @@ $discord->registerCommand('coucou', [
         "Bonjour biloute !"
     ],
     [
-    'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
-    'usage' => 'Dites bonjour à Jacky. Exemple "@Jacky Salut !"'
-]);
+        'aliases' => ['salut', 'hello', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu', 'yo', 'yop'],
+        'usage' => 'Dites bonjour à Jacky. Exemple "@Jacky Salut !"'
+    ]);
 
 $discord->run();
 
