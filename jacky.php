@@ -50,7 +50,7 @@ $discord->on('ready', function() use ($discord) {
 /* Hey */
 $discord->registerCommand('coucou', [ 'Salut !', 'M\'jour vieille branche', 'HEY bonjour enculé', ':wave:', 'Salut ! Comment vont ta femme et mes gosses ? :nerd:', 'Bonjour biloute !' ],
     [
-        'aliases' => ['salut', 'hello', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu', 'yo', 'yop']
+        'aliases' => ['salut', 'hello', ':wave:', 'bonjour']
     ]);
 
 $discord->run();
