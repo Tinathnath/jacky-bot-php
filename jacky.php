@@ -50,14 +50,16 @@ $discord->on('ready', function() use ($discord) {
 /* Hey */
 $discord->registerCommand('coucou', function($m, $p) {
     $author = "{$m->author}";
-    return [
+    /*return [
         "Salut $author !",
         "M'jour vieille branche $author",
         "HEY bonjour enculé $author !",
         ":wave: $author",
         "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
         "Bonjour biloute $author !"
-    ];
+    ];*/
+
+    return "Salut $author";
 }, [
     'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
     'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
