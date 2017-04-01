@@ -31,7 +31,11 @@
     },
     "extra": {
         "incenteev-parameters": {
-            "file": "config/parameters.yml"
+            "file": "config/parameters.yml",
+            "env-map": {
+                "discord_api_token": "DISCORD_TOKEN",
+                "imgur_api_token" : "IMGUR_TOKEN"
+            }
         }
     }
 }
