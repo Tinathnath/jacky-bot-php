@@ -48,17 +48,9 @@ $discord->on('ready', function() use ($discord) {
 });
 
 /* Hey */
-$discord->registerCommand('coucou', [
-        "Salut !",
-        "M'jour vieille branche",
-        "HEY bonjour enculé",
-        ":wave:",
-        "Salut ! Comment vont ta femme et mes gosses ? :nerd:",
-        "Bonjour biloute !"
-    ],
+$discord->registerCommand('coucou', [ 'Salut !', 'M\'jour vieille branche', 'HEY bonjour enculé', ':wave:', 'Salut ! Comment vont ta femme et mes gosses ? :nerd:', 'Bonjour biloute !' ],
     [
-        'aliases' => ['salut', 'hello', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu', 'yo', 'yop'],
-        'usage' => 'Dites bonjour à Jacky. Exemple "@Jacky Salut !"'
+        'aliases' => ['salut', 'hello', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu', 'yo', 'yop']
     ]);
 
 $discord->run();
