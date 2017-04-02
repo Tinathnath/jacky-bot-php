@@ -28,7 +28,7 @@ class SayCommand implements CommandInterface, CommandInjectionInterface
             $message->channel->sendMessage(sprintf("%s %s", $mention, $whatToSay));
         }
 
-        $message->channel->deleteMessages([$message]);
+        $message->channel->deleteMessages([$message->id]);
     }
 
     public function setConfiguration(ConfigurationWrapper $configuration)
