@@ -30,7 +30,7 @@ class CommandHelper
     public static function removeMessageMentions($message, $mentions)
     {
         foreach ($mentions as $mention) {
-            $mentionString = sprintf('@%s#%s', $mention['username'], $mention['discriminator']);
+            $mentionString = sprintf('<@%s>', $mention['id']);
             $message = str_replace($mentionString, '', $message);
         }
 
