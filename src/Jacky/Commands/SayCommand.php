@@ -23,11 +23,12 @@ class SayCommand implements CommandInterface, CommandInjectionInterface
 
     public function execute(Message $message, $params = [])
     {
-        $message->channel->sendMessage("‘$message->content‘");
         $whatToSay = CommandHelper::removeMessageMentions($this->getContent($message->content), $message->mentions);
         foreach ($message->mentions as $mention) {
             $message->channel->sendMessage(sprintf("%s %s", $mention, $whatToSay));
         }
+
+        $message->channel->deleteMessages([$message]);
     }
 
     public function setConfiguration(ConfigurationWrapper $configuration)
