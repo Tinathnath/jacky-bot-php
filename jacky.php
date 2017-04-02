@@ -42,6 +42,6 @@ $discord->registerCommand('coucou', [ 'Salut !', 'M\'jour vieille branche', 'HEY
 $jacky = new Jacky($discord);
 $jacky->setConfiguration($configuration)
     ->setParameters($parameters)
-    ->init();
-    //->run();
+    ->init()
+    ->run();
 
