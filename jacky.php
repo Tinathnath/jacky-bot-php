@@ -16,7 +16,7 @@ $configuration = $configurationLoader->load(__DIR__.'/config', 'config.yml');
 $parametersLoader = new ParametersLoader();
 $parameters = $parametersLoader->load(__DIR__.'/config', 'parameters.yml');
 
-$factory = new DiscordFactory($parameters->get('discord_api_token'));
+$factory = new DiscordFactory($parameters->get('discord_api_token'), $configuration->get('command_prefix'));
 $discord = $factory->create();
 
 echo 'Démarrage...'.PHP_EOL;
@@ -31,13 +31,6 @@ $discord->on('ready', function() use ($discord) {
 
     echo 'Système opérationnel. Jacky écoute le chan.'.PHP_EOL;
 });
-
-/* Hey */
-$discord->registerCommand('coucou', [ 'Salut !', 'M\'jour vieille branche', 'HEY bonjour enculé', ':wave:', 'Salut ! Comment vont ta femme et mes gosses ? :nerd:', 'Bonjour biloute !' ],
-    [
-        'aliases' => ['salut', 'hello', ':wave:', 'bonjour']
-    ]);
-
 
 $jacky = new Jacky($discord);
 $jacky->setConfiguration($configuration)

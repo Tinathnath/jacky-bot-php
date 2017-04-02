@@ -12,6 +12,7 @@ use Discord\DiscordCommandClient;
 use Discord\Parts\Channel\Message;
 use Jacky\Config\ConfigurationWrapper;
 use Jacky\Commands;
+use Jacky\Exception\Commands\MissingImplementationException;
 
 /**
  * Class Jacky
@@ -96,8 +97,17 @@ class Jacky
         $registeredCommands = $this->_configuration->get('commands');
         foreach ($registeredCommands as $command) {
             $obj = new \ReflectionClass($command['class']);
-            if($obj->implementsInterface('Jacky\Commands\CommandInterface'))
-                $this->_commands[] = new $command['class'];
+            if($obj->implementsInterface('Jacky\Commands\CommandInterface')){
+                $commandObj =  new $command['class'];
+                if($command['advanced']){
+                    if($obj->implementsInterface('Jacky\Commands\CommandInjectionInterface'))
+                        $commandObj->setConfiguration($this->_configuration);
+                    else
+                        throw new MissingImplementationException(sprintf('La commande %s est déclarée "advanced" mais n\'implémente pas CommandInjectionInterface'), $commandObj->getName());
+                }
+
+                $this->_commands[] = $commandObj;
+            }
         }
     }
 

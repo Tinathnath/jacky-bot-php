@@ -36,6 +36,7 @@ class ConfigurationTree implements ConfigurationInterface
                     ->prototype('array')
                         ->children()
                             ->scalarNode('class')->end()
+                            ->booleanNode('advanced')->defaultFalse()->end()
                         ->end()
                     ->end()
                 ->end()
