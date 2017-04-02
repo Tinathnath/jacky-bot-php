@@ -10,78 +10,138 @@ namespace Jacky;
 use Discord\Discord;
 use Discord\DiscordCommandClient;
 use Discord\Parts\Channel\Message;
+use Jacky\Config\ConfigurationWrapper;
+use Jacky\Commands;
 
+/**
+ * Class Jacky
+ * The main bot class
+ * @package Jacky
+ */
 class Jacky
 {
-    protected $discord = null;
-    protected $standardCommandClient = null;
-    protected $advancedCommandClient = null;
+    /**
+     * The discord client
+     * @var DiscordCommandClient
+     */
+    protected $_discord;
+
+    /**
+     * The app parameters wrapper
+     * @var ConfigurationWrapper
+     */
+    protected $_parameters;
+
+    /**
+     * The app config wrapper
+     * @var ConfigurationWrapper
+     */
+    protected $_configuration;
+
+    /**
+     * Jacky commands
+     * @var Commands\CommandInterface[]
+     */
+    protected $_commands = [];
 
     /**
      * Jacky constructor.
-     * @param Discord $discordClient
+     * @param DiscordCommandClient $discord
      */
-    public function __construct(Discord $discordClient)
+    public function __construct(DiscordCommandClient $discord)
     {
-        $this->discord = $discordClient;
+        $this->_discord = $discord;
     }
 
     /**
-     * @param DiscordCommandClient $client
+     * Init handlers and commands
      * @return $this
      */
-    public function setStandardCommandClient(DiscordCommandClient $client)
+    public function init()
     {
-        $this->standardCommandClient = $client;
+        $this->loadCommands();
+        $this->registerCommands();
+        $this->attachHandler();
+
         return $this;
     }
 
     /**
-     * @param DiscordCommandClient $client
+     * Attaches the message handler
      * @return $this
      */
-    public function setAdvancedCommandClient(DiscordCommandClient $client)
+    protected function attachHandler()
     {
-        $this->advancedCommandClient = $client;
-        return $this;
-    }
-
-
-    public function registerStandardCommands()
-    {
-        /* Hey */
-        $this->standardCommandClient->registerCommand('hey', function($m, $p) { return $this->sayHello($m, $p); }, [
-            'aliases' => ['salut', 'hello', 'coucou', ':wave:', 'beat', 'bonjour', 'bonsoir', 'hi', 'lu\'', 'lu', 'yo', 'yop'],
-            'usage' => 'Dites bonjour à Jacky. Exemple "Salut @Jacky !"'
-        ]);
+        $this->_discord->on('ready', function(){
+            $this->_discord->on('message', function($message, $params){
+                $this->handleMessage($message);
+            });
+        });
 
         return $this;
     }
 
-    public function registerAdvancedCommands()
+    protected function handleMessage(Message $message)
     {
-        return $this;
+
     }
 
     #region Commands
+    /**
+     * Loads commands registered in config
+     * @throws Exception\Config\ConfigurationNodeNotFoundException
+     */
+    private function loadCommands()
+    {
+        $registeredCommands = $this->_configuration->get('commands');
+        foreach ($registeredCommands as $command) {
+            $obj = new \ReflectionClass($command['class']);
+            if($obj->implementsInterface('Jacky\Commands\CommandInterface'))
+                $this->_commands[] = new $command['class'];
+        }
+    }
 
     /**
-     * Replies to hello messages
-     * @param Message $message
-     * @param $params
-     * @return array
+     * Register the commands towards Discord client
+     * @throws \Exception
      */
-    public function sayHello(Message $message, $params)
+    private function registerCommands()
     {
-        $author = "{$message->author}";
-        return [
-            "Salut $author !",
-            "M'jour vieille branche $author",
-            "HEY bonjour enculé $author !",
-            ":wave: $author",
-            "Salut $author ! Comment vont ta femme et mes gosses ? :nerd:",
-            "Bonjour biloute $author !"
-        ];
+        foreach ($this->_commands as $command) {
+            $this->_discord->registerCommand($command->getName(), function($msg, $params) use ($command) {
+               return $command->execute($msg, $params);
+            });
+        }
+    }
+    #endregion
+
+    /**
+     * Start the loop
+     */
+    public function run()
+    {
+        $this->_discord->run();
+    }
+
+    #region Setters
+    /**
+     * @param $parameters
+     * @return $this
+     */
+    public function setParameters($parameters)
+    {
+        $this->_parameters = $parameters;
+        return $this;
+    }
+
+    /**
+     * @param $configuration
+     * @return $this
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->_configuration = $configuration;
+        return $this;
     }
 
     #endregion

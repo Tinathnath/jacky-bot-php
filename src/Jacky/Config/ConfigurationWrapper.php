@@ -48,7 +48,7 @@ class ConfigurationWrapper
     /**
      * Return a config key's value
      * @param $node
-     * @return string
+     * @return mixed
      * @throws ConfigurationNodeNotFoundException
      */
     public function get($node)

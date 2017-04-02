@@ -2,7 +2,6 @@
 ini_set('memory_limit', '-1');
 require_once __DIR__.'/vendor/autoload.php';
 
-use Jacky\JackyStarter;
 use Jacky\Config\ConfigurationLoader;
 use Jacky\Config\ParametersLoader;
 use Jacky\Factory\DiscordFactory;
@@ -11,31 +10,17 @@ use Jacky\Jacky;
 echo 'Starting Jacky...'.PHP_EOL;
 echo 'Préchauffage en cours...'.PHP_EOL;
 
-$starter = new JackyStarter();
-
 $configurationLoader = new ConfigurationLoader();
 $configuration = $configurationLoader->load(__DIR__.'/config', 'config.yml');
 
 $parametersLoader = new ParametersLoader();
 $parameters = $parametersLoader->load(__DIR__.'/config', 'parameters.yml');
 
-/*
-$parameters = $starter->loadParameters(__DIR__.'/config');
-$starter->setApiToken($parameters->get('parameters.discord_api_token'));
-$discord = $starter->initDiscord();
-$standardCommand = $starter->initStandardCommandClient();
-$advancedCommand = $starter->initAdvancedCommandClient();
-*/
-
 $factory = new DiscordFactory($parameters->get('discord_api_token'));
 $discord = $factory->create();
 
 echo 'Démarrage...'.PHP_EOL;
 $discord->on('ready', function() use ($discord) {
-    $jacky = new Jacky($discord);
-
-
-
 
 
             // Listen for messages.
@@ -53,5 +38,10 @@ $discord->registerCommand('coucou', [ 'Salut !', 'M\'jour vieille branche', 'HEY
         'aliases' => ['salut', 'hello', ':wave:', 'bonjour']
     ]);
 
-$discord->run();
+
+$jacky = new Jacky($discord);
+$jacky->setConfiguration($configuration)
+    ->setParameters($parameters)
+    ->init();
+    //->run();
 

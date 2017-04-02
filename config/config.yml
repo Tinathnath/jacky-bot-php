@@ -1,5 +1,7 @@
 jacky:
-    command_prefix: mention
+    command_prefix: ?
+    commands:
+        - { class: Jacky\Commands\TestCommand }
     description: null
     redis:
         host: 127.0.0.1
