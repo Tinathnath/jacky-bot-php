@@ -37,4 +37,9 @@ class SayCommand extends Command implements CommandInterface
     {
         return 'say';
     }
+
+    public function getHelp()
+    {
+        return 'Fait dire à Jacky le message que vous lui demandez aux personne mentionnées: ?say coucou @user1 @user2';
+    }
 }

@@ -122,7 +122,9 @@ class Jacky
         foreach ($this->_commands as $command) {
             $this->_discord->registerCommand($command->getName(), function($msg, $params) use ($command) {
                return $command->execute($msg, $params);
-            });
+            }, [
+                'description' => $command->getHelp()
+            ]);
         }
     }
     #endregion

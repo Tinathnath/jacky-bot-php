@@ -19,6 +19,12 @@ interface CommandInterface
     public function getName();
 
     /**
+     * Returns the description / help message
+     * @return mixed
+     */
+    public function getHelp();
+
+    /**
      * Contains the command code to run
      * @param Message $message
      * @param array $params

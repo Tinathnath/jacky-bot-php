@@ -19,7 +19,7 @@ use Discord\Parts\Embed\Embed;
 class SpotifyCommand extends Command implements CommandInterface
 {
 
-    const SPOTIFY_URI_BASE = 'https://embed.spotify.com/?uri=';
+    const SPOTIFY_URI_BASE = 'https://open.spotify.com/';
 
     public function execute(Message $message, $params = [])
     {
@@ -36,24 +36,18 @@ class SpotifyCommand extends Command implements CommandInterface
         if($spotifyUriParts[0] != "spotify")
             return;
 
-        $embedUrl = sprintf('%s%s', self::SPOTIFY_URI_BASE, $spotifyUri);
-        $embedObj = $this->discord->factory(Embed::class, [
-            'title' => 'Spotify',
-            'type' => 'rich',
-            'description' => 'Probablement une musique',
-            'url' => $embedUrl,
-            'timestamp' => time(),
-            'provider' => [
-                'name' => 'spotify',
-                'url' => $embedUrl
-            ]
-        ]);
+        $embedUrl = sprintf('%s/%s/%s', self::SPOTIFY_URI_BASE, $spotifyUriParts[1], $spotifyUriParts[2]);
 
-        $message->channel->sendMessage($spotifyUri, false, $embedObj);
+        $message->channel->sendMessage($embedUrl);
     }
 
     public function getName()
     {
         return 'spotify';
+    }
+
+    public function getHelp()
+    {
+        return 'Renvoie un lien direct vers une chanson/album/artiste sur Spotify à partir de son URI spotify:truc:id';
     }
 }
