@@ -17,7 +17,9 @@ $parametersLoader = new ParametersLoader();
 $parameters = $parametersLoader->load(__DIR__.'/config', 'parameters.yml');
 
 $factory = new DiscordFactory($parameters->get('discord_api_token'), $configuration->get('command_prefix'));
-$discord = $factory->create();
+$discord = $factory->create([
+    'description' => $configuration->get('description')
+]);
 
 echo 'Démarrage...'.PHP_EOL;
 $discord->on('ready', function() use ($discord) {
