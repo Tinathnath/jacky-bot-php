@@ -36,6 +36,8 @@ class SpotifyCommand extends Command implements CommandInterface
         if($spotifyUriParts[0] != "spotify")
             return;
 
+        var_dump($contentParts);
+        var_dump($spotifyUriParts);
         $embedUrl = sprintf('%s/%s/%s', self::SPOTIFY_URI_BASE, $spotifyUriParts[1], $spotifyUriParts[2]);
 
         $message->channel->sendMessage($embedUrl);
