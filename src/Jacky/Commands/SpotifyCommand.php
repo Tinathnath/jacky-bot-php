@@ -49,7 +49,7 @@ class SpotifyCommand extends Command implements CommandInterface
             ]
         ]);
 
-        $message->channel->sendMessage("", false, $embedObj);
+        $message->channel->sendMessage($spotifyUri, false, $embedObj);
     }
 
     public function getName()
