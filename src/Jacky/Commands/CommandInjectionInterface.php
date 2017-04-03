@@ -8,6 +8,7 @@
 namespace Jacky\Commands;
 
 
+use Discord\Discord;
 use Jacky\Config\ConfigurationWrapper;
 
 /**
@@ -18,4 +19,6 @@ use Jacky\Config\ConfigurationWrapper;
 interface CommandInjectionInterface
 {
     public function setConfiguration(ConfigurationWrapper $configuration);
+
+    public function setDiscord(Discord $discord);
 }

@@ -2,6 +2,7 @@ jacky:
     command_prefix: ?
     commands:
         - { class: Jacky\Commands\SayCommand, advanced: true }
+        - { class: Jacky\Commands\SpotifyCommand, advanced: true }
     description: null
     redis:
         host: 127.0.0.1

@@ -100,8 +100,10 @@ class Jacky
             if($obj->implementsInterface('Jacky\Commands\CommandInterface')){
                 $commandObj =  new $command['class'];
                 if($command['advanced']){
-                    if($obj->implementsInterface('Jacky\Commands\CommandInjectionInterface'))
+                    if($obj->implementsInterface('Jacky\Commands\CommandInjectionInterface')){
                         $commandObj->setConfiguration($this->_configuration);
+                        $commandObj->setDiscord($this->_discord);
+                    }
                     else
                         throw new MissingImplementationException(sprintf('La commande %s est déclarée "advanced" mais n\'implémente pas CommandInjectionInterface'), $commandObj->getName());
                 }

@@ -12,9 +12,13 @@ use Discord\Parts\Channel\Message;
 use Jacky\Commands\Helpers\CommandHelper;
 use Jacky\Config\ConfigurationWrapper;
 
-class SayCommand implements CommandInterface, CommandInjectionInterface
+/**
+ * Class SayCommand
+ * Says a message to a bunch of users
+ * @package Jacky\Commands
+ */
+class SayCommand extends Command implements CommandInterface
 {
-    private $config = null;
 
     public function execute(Message $message, $params = [])
     {
@@ -24,16 +28,6 @@ class SayCommand implements CommandInterface, CommandInjectionInterface
         }
 
         $message->channel->messages->delete($message);
-    }
-
-    private function getContent($message)
-    {
-        return CommandHelper::getCommandContent($message, $this->config->get('command_prefix'), $this->getName());
-    }
-
-    public function setConfiguration(ConfigurationWrapper $configuration)
-    {
-        $this->config = $configuration;
     }
 
     public function getName()
