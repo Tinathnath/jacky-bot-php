@@ -16,24 +16,14 @@ class SayCommand implements CommandInterface, CommandInjectionInterface
 {
     private $config = null;
 
-    public function getName()
-    {
-        return 'say';
-    }
-
     public function execute(Message $message, $params = [])
     {
         $whatToSay = CommandHelper::removeMessageMentions($this->getContent($message->content), $message->mentions);
         foreach ($message->mentions as $mention) {
-            $message->channel->sendMessage(sprintf("%s %s", $mention, $whatToSay));
+            $message->channel->sendMessage(sprintf("%s %s (de la part de %s)", $mention, $whatToSay, $message->author));
         }
 
-        $message->channel->deleteMessages([$message->id]);
-    }
-
-    public function setConfiguration(ConfigurationWrapper $configuration)
-    {
-        $this->config = $configuration;
+        $message->channel->messages->delete($message);
     }
 
     private function getContent($message)
@@ -41,4 +31,13 @@ class SayCommand implements CommandInterface, CommandInjectionInterface
         return CommandHelper::getCommandContent($message, $this->config->get('command_prefix'), $this->getName());
     }
 
+    public function setConfiguration(ConfigurationWrapper $configuration)
+    {
+        $this->config = $configuration;
+    }
+
+    public function getName()
+    {
+        return 'say';
+    }
 }
