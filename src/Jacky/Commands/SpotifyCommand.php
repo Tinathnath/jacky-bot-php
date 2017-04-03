@@ -19,7 +19,7 @@ use Discord\Parts\Embed\Embed;
 class SpotifyCommand extends Command implements CommandInterface
 {
 
-    const SPOTIFY_URI_BASE = 'https://open.spotify.com/';
+    const SPOTIFY_URI_BASE = 'https://open.spotify.com';
 
     public function execute(Message $message, $params = [])
     {
