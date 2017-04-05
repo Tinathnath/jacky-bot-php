@@ -22,6 +22,8 @@ class ImgurCommand extends Command implements CommandInterface
         $imgur->requestGallery($search,
         //success
             function($images) use (&$message){
+                echo 'hey !';
+                var_dump($images);
                 if(count($images) == 0)
                     return;
 
