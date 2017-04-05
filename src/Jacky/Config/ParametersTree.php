@@ -31,8 +31,8 @@ class ParametersTree implements ConfigurationInterface
                 ->scalarNode('discord_api_token')
                     ->isRequired()
                 ->end()
-                ->scalarNode('imgur_api_token')
-                ->end()
+                ->scalarNode('imgur_app_id')->end()
+                ->scalarNode('imgur_app_secret')->end()
             ->end();
 
         return $treeBuilder;
