@@ -64,7 +64,8 @@ class ImgurModule
         var_dump($uri);
         var_dump($this->getHeaders());
         var_dump($request);
-        $this->_client->sendAsync($request)->then(
+        $promise = $this->_client->sendAsync($request);
+        $promise->then(
             //success
             function(ResponseInterface $res) use (&$callback){
                 $json = $res->getBody();
