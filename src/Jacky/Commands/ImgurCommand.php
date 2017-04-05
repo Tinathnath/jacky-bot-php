@@ -21,7 +21,7 @@ class ImgurCommand extends Command implements CommandInterface
         $imgur = new ImgurModule($this->parameters->get('imgur_app_id'));
         $imgur->requestGallery($search,
         //success
-            function($images) use ($message){
+            function($images) use (&$message){
                 if(count($images) == 0)
                     return;
 

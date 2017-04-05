@@ -63,7 +63,7 @@ class ImgurModule
         $request = new Request('GET', $uri, $this->getHeaders());
         $this->_client->send($request)->then(
             //success
-            function(ResponseInterface $res) use ($callback){
+            function(ResponseInterface $res) use (&$callback){
                 $json = $res->getBody();
                 $rawData = \GuzzleHttp\json_decode($json, true);
                 $images = [];
@@ -81,7 +81,7 @@ class ImgurModule
                 call_user_func($callback, $images);
             },
             //error
-            function(RequestException $e) use ($error){
+            function(RequestException $e) use (&$error){
                 var_dump($e->getMessage());
                 call_user_func($error, $e);
             }
