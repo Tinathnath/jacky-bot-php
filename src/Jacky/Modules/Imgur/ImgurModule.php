@@ -81,7 +81,7 @@ class ImgurModule
                 call_user_func($callback, $images);
             },
             //error
-            function(RequestException $e) use (&$error){
+            function(\Exception $e) use (&$error){
                 var_dump($e->getMessage());
                 call_user_func($error, $e);
             }
