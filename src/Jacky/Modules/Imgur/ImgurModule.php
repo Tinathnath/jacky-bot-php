@@ -61,7 +61,7 @@ class ImgurModule
 
         $uri = sprintf('%s%s', self::IMG_ENDPOINT, $search);
         $request = new Request('GET', $uri, $this->getHeaders());
-        $this->_client->send($request)->then(
+        $this->_client->sendAsync($request)->then(
             //success
             function(ResponseInterface $res) use (&$callback){
                 $json = $res->getBody();
