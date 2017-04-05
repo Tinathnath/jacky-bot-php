@@ -102,6 +102,7 @@ class Jacky
                 if($command['advanced']){
                     if($obj->implementsInterface('Jacky\Commands\CommandInjectionInterface')){
                         $commandObj->setConfiguration($this->_configuration);
+                        $commandObj->setParameters($this->_parameters);
                         $commandObj->setDiscord($this->_discord);
                     }
                     else

@@ -20,5 +20,7 @@ interface CommandInjectionInterface
 {
     public function setConfiguration(ConfigurationWrapper $configuration);
 
+    public function setParameters(ConfigurationWrapper $parameters);
+
     public function setDiscord(Discord $discord);
 }

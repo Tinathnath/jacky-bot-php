@@ -14,7 +14,8 @@
         "team-reflex/discord-php": "dev-master",
         "symfony/config": "^3.2",
         "symfony/yaml": "^3.2",
-        "symfony/expression-language": "^3.2"
+        "symfony/expression-language": "^3.2",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "autoload" : {
         "psr-4": {
@@ -34,7 +35,7 @@
             "file": "config/parameters.yml",
             "env-map": {
                 "discord_api_token": "DISCORD_TOKEN",
-                "imgur_api_token" : "IMGUR_TOKEN"
+                "imgur_app_id" : "IMGUR_TOKEN"
             }
         }
     }

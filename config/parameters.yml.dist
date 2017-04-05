@@ -1,3 +1,4 @@
 parameters:
     discord_api_token: ~
-    imgur_api_token: ~
+    imgur_app_id: ~
+    imgur_app_secret: ~

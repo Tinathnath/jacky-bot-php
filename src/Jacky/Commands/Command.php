@@ -19,6 +19,7 @@ use Jacky\Config\ConfigurationWrapper;
 abstract class Command implements CommandInjectionInterface
 {
     protected $config;
+    protected $parameters;
     protected $discord;
 
     /**
@@ -39,6 +40,15 @@ abstract class Command implements CommandInjectionInterface
     public function setConfiguration(ConfigurationWrapper $configuration)
     {
         $this->config = $configuration;
+    }
+
+    /**
+     * Injects app params in command
+     * @param ConfigurationWrapper $parameters
+     */
+    public function setParameters(ConfigurationWrapper $parameters)
+    {
+        $this->parameters = $parameters;
     }
 
     /**
