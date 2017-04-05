@@ -26,6 +26,7 @@ class ImgurCommand extends Command implements CommandInterface
                     return;
 
                 $img = $images[0];
+                $message->channel->sendMessage($img->link);
                 $message->channel->sendFile($img->link, $img->id);
             },
         //error
