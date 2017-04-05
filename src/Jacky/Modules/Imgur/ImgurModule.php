@@ -69,13 +69,13 @@ class ImgurModule
                     }
                 }
 
-                if(is_callable($callback))
-                    call_user_func($callback, $images);
+                var_dump($images);
+                call_user_func($callback, $images);
             },
             //error
             function(RequestException $e) use ($error){
-                if(gettype($error))
-                    call_user_func($error, $e);
+                var_dump($e->getMessage());
+                call_user_func($error, $e);
             }
         );
     }
