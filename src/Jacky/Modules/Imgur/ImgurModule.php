@@ -22,7 +22,7 @@ class ImgurModule
 {
     const BASE_API_URL = "https://api.imgur.com/3";
 
-    const IMG_ENDPOINT = "/gallery/r/";
+    const IMG_ENDPOINT = "gallery/r/";
 
     /**
      * The Guzzle client
