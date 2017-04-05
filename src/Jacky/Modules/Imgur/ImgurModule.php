@@ -61,6 +61,9 @@ class ImgurModule
 
         $uri = sprintf('%s%s', self::IMG_ENDPOINT, $search);
         $request = new Request('GET', $uri, $this->getHeaders());
+        var_dump($uri);
+        var_dump($this->getHeaders());
+        var_dump($request);
         $this->_client->sendAsync($request)->then(
             //success
             function(ResponseInterface $res) use (&$callback){
