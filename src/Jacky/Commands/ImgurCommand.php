@@ -19,6 +19,7 @@ class ImgurCommand extends Command implements CommandInterface
     {
         $search = CommandHelper::removeMessageMentions($this->getContent($message->content), $message->mentions);
         $imgur = new ImgurModule($this->parameters->get('imgur_app_id'));
+        var_dump($search);
         $imgur->requestGallery($search,
         //success
             function($images) use ($message){
