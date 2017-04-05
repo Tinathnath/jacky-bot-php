@@ -38,6 +38,7 @@ class ImgurModule
 
     /**
      * ImgurModule constructor.
+     * @param string $appId
      */
     public function __construct($appId)
     {
@@ -47,6 +48,12 @@ class ImgurModule
         ]);
     }
 
+    /**
+     * Search in subreddit gallery
+     * @param string $search
+     * @param callable $callback
+     * @param callable $error
+     */
     public function requestGallery($search, $callback, $error)
     {
         if(is_null($search) || $search == "")
@@ -57,7 +64,8 @@ class ImgurModule
         $this->_client->send($request)->then(
             //success
             function(ResponseInterface $res) use ($callback){
-                $rawData = \GuzzleHttp\json_decode($res, true);
+                $json = $res->getBody();
+                $rawData = \GuzzleHttp\json_decode($json, true);
                 $images = [];
                 foreach ($rawData['data'] as $item)
                 {
