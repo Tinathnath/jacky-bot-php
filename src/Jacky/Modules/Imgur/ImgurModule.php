@@ -54,12 +54,12 @@ class ImgurModule
 
         $uri = sprintf('%s%s', self::IMG_ENDPOINT, $search);
         $request = new Request('GET', $uri, $this->getHeaders());
-        $this->_client->sendAsync($request)->then(
+        $this->_client->send($request)->then(
             //success
             function(ResponseInterface $res) use ($callback){
                 $rawData = \GuzzleHttp\json_decode($res, true);
                 $images = [];
-                foreach ($rawData as $item)
+                foreach ($rawData['data'] as $item)
                 {
                     if(!$item['is_album'])
                     {
