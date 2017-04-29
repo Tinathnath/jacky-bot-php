@@ -16,7 +16,7 @@ abstract class Model
 {
     /**
      * Hydates object with raw data
-     * @param $json
+     * @param $data
      */
     public function _hydrate($data)
     {

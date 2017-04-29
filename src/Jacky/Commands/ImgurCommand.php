@@ -21,19 +21,22 @@ class ImgurCommand extends Command implements CommandInterface
         $imgur = new ImgurModule($this->parameters->get('imgur_app_id'));
         $imgur->requestGallery($search,
         //success
-            function($images) use (&$message){
-                echo 'hey !';
-                var_dump($images);
-                if(count($images) == 0)
+            function($images) use (&$message, $search){
+                echo 'images: ';
+                $count = count($images);
+                if($count == 0) {
+                    $message->channel->sendMessage(sprintf("Aucun résultat pour `%s`. Essaye autre chose %s", $search, $message->author));
                     return;
+                }
 
-                $img = $images[0];
+                $idx = rand(0, $count-1);
+                $img = $images[$idx];
                 $message->channel->sendMessage($img->link);
                 $message->channel->sendFile($img->link, $img->id);
             },
         //error
-            function(RequestException $error){
-                echo $error->getMessage();
+            function(RequestException $error) use (&$message, &$search){
+                $message->channel->sendMessage(sprintf('Erreur lors de la recherche de `%s`', $search));
             }
         );
     }

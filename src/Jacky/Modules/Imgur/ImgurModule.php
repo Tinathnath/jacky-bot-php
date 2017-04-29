@@ -20,7 +20,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ImgurModule
 {
-    const BASE_API_URL = "https://api.imgur.com/3";
+    const BASE_API_URL = "https://api.imgur.com/3/";
 
     const IMG_ENDPOINT = "gallery/r/";
 
@@ -61,35 +61,26 @@ class ImgurModule
 
         $uri = sprintf('%s%s', self::IMG_ENDPOINT, $search);
         $request = new Request('GET', $uri, $this->getHeaders());
-        var_dump($uri);
-        var_dump($this->getHeaders());
-        var_dump($request);
-        $promise = $this->_client->sendAsync($request);
-        $promise->then(
-            //success
-            function(ResponseInterface $res) use (&$callback){
-                $json = $res->getBody();
-                $rawData = \GuzzleHttp\json_decode($json, true);
-                $images = [];
-                foreach ($rawData['data'] as $item)
+        try {
+            $response = $this->_client->send($request);
+            $json = $response->getBody();
+            $rawData = \GuzzleHttp\json_decode($json, true);
+            $images = [];
+            foreach ($rawData['data'] as $item)
+            {
+                if(!$item['is_album'])
                 {
-                    if(!$item['is_album'])
-                    {
-                        $img = new GalleryImage();
-                        $img->_hydrate($item);
-                        $images[] = $img;
-                    }
+                    $img = new GalleryImage();
+                    $img->_hydrate($item);
+                    $images[] = $img;
                 }
-
-                var_dump($images);
-                call_user_func($callback, $images);
-            },
-            //error
-            function(\Exception $e) use (&$error){
-                var_dump($e->getMessage());
-                call_user_func($error, $e);
             }
-        );
+            call_user_func($callback, $images);
+        }
+        catch(RequestException $e){
+            call_user_func($error, $e);
+        }
+
     }
 
     /**
