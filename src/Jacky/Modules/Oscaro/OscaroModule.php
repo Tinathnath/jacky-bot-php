@@ -33,7 +33,9 @@ class OscaroModule
      */
     public function __construct()
     {
-        $this->_client = new Client();
+        $this->_client = new Client([
+            'cookies' => true
+        ]);
     }
 
     public function requestCar($immat, $callback, $error)
@@ -42,13 +44,18 @@ class OscaroModule
             return;
 
         try {
+            $this->_client->request('GET', 'https://www.oscaro.com', [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+                ]
+            ]);
+
             $response = $this->_client->request('POST', self::API_URL, [
                'form_params' => [
                    'frenchLicencePlate' => $immat,
                    'genartId' => null
                ],
-                'headers' => $this->getHeaders(),
-                'cookies' => new \GuzzleHttp\Cookie\CookieJar()
+                'headers' => $this->getHeaders()
             ]);
 
             $json = $response->getBody();
