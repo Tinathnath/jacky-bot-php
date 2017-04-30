@@ -68,11 +68,7 @@ class ImgurModule
 
             $rawData = \GuzzleHttp\json_decode($json);
             $images = [];
-            echo count($rawData->data);
-            for($i = 0; $i < count($rawData->data); $i++){
-                $item = $rawData->data[$i];
-                echo $i;
-                var_dump($item);
+            foreach($rawData->data as $item){
                 if (!$item->is_album) {
                     $img = new GalleryImage();
                     $img->link = $item->link;
