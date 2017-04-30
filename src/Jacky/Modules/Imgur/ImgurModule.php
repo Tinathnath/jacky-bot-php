@@ -11,8 +11,9 @@ namespace Jacky\Modules\Imgur;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use Jacky\Modules\Imgur\Models\GalleryImage;
+use Jacky\Modules\GalleryImage;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class ImgurModule
@@ -64,23 +65,30 @@ class ImgurModule
         try {
             $response = $this->_client->send($request);
             $json = $response->getBody();
-            $rawData = \GuzzleHttp\json_decode($json, true);
+
+            $rawData = \GuzzleHttp\json_decode($json);
             $images = [];
-            foreach ($rawData['data'] as $item)
-            {
-                if(!$item['is_album'])
-                {
+            echo count($rawData->data);
+            for($i = 0; $i < count($rawData->data); $i++){
+                $item = $rawData->data[$i];
+                echo $i;
+                var_dump($item);
+                if (!$item->is_album) {
                     $img = new GalleryImage();
-                    $img->_hydrate($item);
+                    $img->link = $item->link;
+                    $img->title = $item->title;
+                    $img->id = $item->id;
                     $images[] = $img;
                 }
             }
+
             call_user_func($callback, $images);
-        }
-        catch(RequestException $e){
+        } catch (RequestException $e) {
             call_user_func($error, $e);
         }
-
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
     }
 
     /**

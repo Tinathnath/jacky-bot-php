@@ -6,7 +6,7 @@
  * Date: 05/04/2017
  */
 
-namespace Jacky\Modules\Imgur\Models;
+namespace Jacky\Modules;
 
 /**
  * Class GalleryImage
