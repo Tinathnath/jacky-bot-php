@@ -40,6 +40,7 @@ class CarCommand extends Command implements CommandInterface
             //error
             function(RequestException $error) use (&$message, &$immat){
                 $message->channel->sendMessage(sprintf('Erreur lors de la recherche de la plaque `%s`', $immat));
+                echo $error->getMessage();
             }
         );
     }
