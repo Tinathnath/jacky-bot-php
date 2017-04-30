@@ -47,7 +47,8 @@ class OscaroModule
                    'frenchLicencePlate' => $immat,
                    'genartId' => null
                ],
-                'headers' => $this->getHeaders()
+                'headers' => $this->getHeaders(),
+                'cookies' => new \GuzzleHttp\Cookie\CookieJar()
             ]);
 
             $json = $response->getBody();
