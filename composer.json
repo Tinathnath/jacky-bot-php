@@ -15,7 +15,8 @@
         "symfony/config": "^3.2",
         "symfony/yaml": "^3.2",
         "symfony/expression-language": "^3.2",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "predis/predis": "^1.1"
     },
     "autoload" : {
         "psr-4": {
@@ -35,7 +36,8 @@
             "file": "config/parameters.yml",
             "env-map": {
                 "discord_api_token": "DISCORD_TOKEN",
-                "imgur_app_id" : "IMGUR_TOKEN"
+                "imgur_app_id" : "IMGUR_TOKEN",
+                "redis_host" : "REDIS_URL"
             }
         }
     }

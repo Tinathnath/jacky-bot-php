@@ -6,5 +6,3 @@ jacky:
         - { class: Jacky\Commands\ImgurCommand, advanced: true }
         - { class: Jacky\Commands\CarCommand, advanced: true }
     description:  Un bot qui apporte de la joie à votre chan
-    redis:
-        host: 127.0.0.1

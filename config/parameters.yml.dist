@@ -2,3 +2,5 @@ parameters:
     discord_api_token: ~
     imgur_app_id: ~
     imgur_app_secret: ~
+    redis_host: 127.0.0.1
+    redis_port: ~

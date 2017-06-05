@@ -33,6 +33,8 @@ class ParametersTree implements ConfigurationInterface
                 ->end()
                 ->scalarNode('imgur_app_id')->end()
                 ->scalarNode('imgur_app_secret')->end()
+                ->scalarNode('redis_host')->end()
+                ->scalarNode('redis_port')->end()
             ->end();
 
         return $treeBuilder;
