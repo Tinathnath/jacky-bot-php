@@ -52,7 +52,7 @@ class RedisCache implements CacheInterface
      * @param array $options
      * @return RedisCache
      */
-    public static function getInstance($host = "127.0.0.1", $port = 6379, $options = [])
+    public static function getInstance($host = "127.0.0.1", $port, $options = []) //Defautl redis port is 6379
     {
         if(self::$_instance == null || !self::$_instance instanceof RedisCache)
             self::$_instance = new RedisCache($host, $port, $options);

@@ -11,6 +11,7 @@ namespace Jacky\Commands;
 use Discord\Parts\Channel\Message;
 use GuzzleHttp\Exception\RequestException;
 use Jacky\Caching\CacheFactory;
+use Jacky\Caching\RedisCache;
 use Jacky\Commands\Helpers\ChanHelper;
 use Jacky\Commands\Helpers\CommandHelper;
 use Jacky\Modules\Imgur\ImgurHelper;
@@ -23,13 +24,16 @@ class ImgurCommand extends Command implements CommandInterface
         $search = CommandHelper::removeMessageMentions($this->getContent($message->content), $message->mentions);
         $chanHelper = new ChanHelper(CacheFactory::get($this->parameters));
         $imgurHelper = new ImgurHelper(CacheFactory::get($this->parameters));
-        if(!$imgurHelper->isUserAllowed($message->author))
+
+        //var_dump($imgurHelper->isUserAllowed($message->author));
+       // if(!$imgurHelper->isUserAllowed($message->author))
             $message->reply(sprintf('Doucement sur les photos de ~~boobs~~ chaton, pas plus de %d recherches par minute !', $imgurHelper::QUERY_PER_MIN));
+
 
         $imgur = new ImgurModule($this->parameters->get('imgur_app_id'));
         $imgur->requestGallery($search,
         //success
-            function($images) use (&$message, $search, &$chanHelper){
+            function($images) use ($message, $search, $chanHelper){
                 $count = count($images);
                 if($count == 0) {
                     $message->channel->sendMessage(sprintf("Aucun résultat pour `%s`. Essaye autre chose %s", $search, $message->author));
